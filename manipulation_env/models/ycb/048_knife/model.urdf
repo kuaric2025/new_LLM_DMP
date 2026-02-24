@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot name="ycb_048_knife">
+  <link name="knife">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.08"/>
+      <inertia ixx="1.6e-4" iyy="1.6e-4" izz="5e-5" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+
+    <!-- blade -->
+    <visual>
+      <origin xyz="0.08 0 0.01" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.16 0.02 0.004"/>
+      </geometry>
+      <material name="knife_blade">
+        <color rgba="0.8 0.8 0.82 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.08 0 0.01" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.16 0.02 0.004"/>
+      </geometry>
+    </collision>
+
+    <!-- handle -->
+    <visual>
+      <origin xyz="-0.03 0 0.012" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.08 0.03 0.018"/>
+      </geometry>
+      <material name="knife_handle">
+        <color rgba="0.3 0.15 0.08 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.03 0 0.012" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.08 0.03 0.018"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>
