@@ -41,17 +41,19 @@ def load_llm_config(config_path: str | Path | None = None) -> tuple[dict, dict[s
 
 def build_system_prompt(width: int, height: int, actions: Sequence[str], action_id_mapping: dict[str, str]) -> str:
     return (
-        "You are a robotic assistant for grasping tasks. "
+        "You are a robotic assistant for long-horizon grasping tasks. "
         f"Given a task and an image with original size of ({width}, {height}), generate a step-by-step action plan in JSON format.\n"
         f"There are several actions that the robot can perform, including: {actions}, when generating the plan, you should only use the actions that are listed here. \n"
         "Please use common, everyday object names (only one word) that fit naturally into the context.\n"
         "Actions are divided into two types: \n"
         "1) Manipulation actions: reach, move_to.\n"
         "   - These actions require a target_object with name and optionally attributes.\n"
-        "2) Motion / task actions: grasp, release, pour.\n"
+        "2) Motion / task actions: grasp, release, pour, wiping\n"
         "   - For 'grasp', include target_object with name and optionally 'part' field.\n"
         "   - For 'pour', include both source_object (with ref_id after first grounding) and target_object.\n"
         "   - For 'release', include target_object.\n"
+        "   - For 'wiping', should first grasp the sponge for wiping task, then do wiping action.\n"
+        "One complete and independent pick and place task should follow the action: reach to -> grasp -> reach to -> release.\n"
         "Additional planning constraints: \n"
         "- The plan MUST include interaction with the task goal object.\n"
         "- For transfer actions such as 'pour', the robot MUST move to the target object before performing the action.\n"

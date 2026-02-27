@@ -55,7 +55,7 @@ class Env:
     
     SIMULATION_STEP_DELAY = 1 / 960.
 
-    def __init__(self, robot, block_path=None, table_path=None, vis=False) -> None:
+    def __init__(self, robot, block_path=None, table_path=None, bin_path=None, vis=False) -> None:
         """
         robot: robot object
         models: models object
@@ -64,6 +64,7 @@ class Env:
         self.robot = robot
         self.block_path = block_path
         self.table_path = table_path
+        self.bin_path = bin_path
 
         # default camera configuration (used for RGB-D capture + TF broadcasting)
         self.camera_eye = [0.6, 0.0, 1.2]
@@ -90,7 +91,12 @@ class Env:
                                 useFixedBase=True,
                                 flags=p.URDF_MERGE_FIXED_LINKS | p.URDF_USE_SELF_COLLISION)
         
-        self.boxID = p.loadURDF(self.block_path, [0.6, 0, 0.05],
+        # self.boxID = p.loadURDF(self.block_path, [0.6, 0, 0.05],
+        #                         # p.getQuaternionFromEuler([0, 1.5706453, 0]),
+        #                         p.getQuaternionFromEuler([0, 0, 0]),
+        #                         useFixedBase=False,
+        #                         flags=p.URDF_MERGE_FIXED_LINKS | p.URDF_USE_SELF_COLLISION)
+        self.binID = p.loadURDF(self.bin_path, [-0.2, -0.5, 0.05],
                                 # p.getQuaternionFromEuler([0, 1.5706453, 0]),
                                 p.getQuaternionFromEuler([0, 0, 0]),
                                 useFixedBase=False,
@@ -102,12 +108,30 @@ class Env:
     def _load_ycb_props(self):
         """Spawn a small set of tabletop YCB proxies for visual context."""
         base_dir = os.path.join(os.path.dirname(__file__), "models", "ycb")
+        
         layout = [
-            ("011_banana", [0.55, -0.24, 0.06], [0, 0, 1.0]),
-            # ("011_banana", [0.55, 0.12, 0.06], [0, 0, 1.0]),
-            ("025_mug", [0.78, 0.24, 0.07], [0, 0, 0]),
-            ("029_plate", [0.92, -0.02, 0.055], [0, 0, 0]),
-            ("032_knife", [0.64, 0.06, 0.045], [0, 0, -0.35]),
+
+            # # serve breakfast with all fruits
+            # ("011_banana", [0.55, -0.24, 0.06], [0, 0, 1.0]),
+            # ("029_plate", [0.92, -0.1, 0.055], [0, 0, 0]),
+            # # ("032_knife", [0.64, 0.06, 0.045], [0, 0, -0.35]),
+            # ("013_apple", [0.4, -0.24, 0.06], [0, 0, 1.0]),
+            # ("017_orange", [0.69, 0.12, 0.06], [0, 0, 1.0]),
+            
+
+            # serve multiple cups of drink
+            ("065-h_cups", [0.55, -0.24, 0.06], [0, 0, 1.0]),
+            ("065-i_cups", [0.55, 0.00, 0.06], [0, 0, 1.0]),
+            ("065-j_cups", [0.55, 0.24, 0.06], [0, 0, 1.0]),
+            ("019_pitcher_base", [-0.2, -0.5, 0.06], [0, 0, 1.0]),
+
+            # # clear the table into bin and clean the table
+            # ("011_banana", [0.55, -0.24, 0.06], [0, 0, 1.0]),
+            # ("025_mug", [0.65, 0.24, 0.07], [0, 0, 0]),
+            # # ("010_potted_meat_can", [0.4, 0.2, 0.06], [0, 0, 1.0]),
+            # # ("065-h_cups", [0.55, -0.24, 0.06], [0, 0, 1.0]),
+            # ("013_apple", [0.4, -0.24, 0.06], [0, 0, 1.0]),
+            # ("026_sponge", [0.2, 0.2, 0.06], [0, 0, 1.0]),
         ]
         if not os.path.isdir(base_dir):
             return
@@ -138,6 +162,7 @@ class Env:
                 self.ycb_objects.append(obj_id)
             except Exception as exc:
                 print(f"[YCB] Failed to load {name}: {exc}")
+            # import pdb; pdb.set_trace()
 
     def step_simulation(self):
         """
@@ -174,8 +199,8 @@ class Env:
             
 
 class ManiEnv(Env):
-    def __init__(self, robot, block_path=None, table_path=None, vis=False):
-        super().__init__(robot, block_path=block_path, table_path=table_path,vis=vis) 
+    def __init__(self, robot, block_path=None, table_path=None, bin_path=None, vis=False):
+        super().__init__(robot, block_path=block_path, table_path=table_path, bin_path=bin_path, vis=vis) 
 
         # define workspace
         self.min_pose = [0.4, -0.4, 0] 

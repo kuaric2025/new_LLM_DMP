@@ -324,6 +324,7 @@ def parse_args():
     parser.add_argument("--show-camera", action="store_true", help="Display realtime camera view via OpenCV")
     parser.add_argument("--subscribe-camera", action="store_true", help="Subscribe to RGB+depth+CameraInfo topics for monitoring")
     parser.add_argument("--subscriber-log-interval", type=float, default=5.0, help="Seconds between subscriber status logs")
+    parser.add_argument("--prompt", type=str, default="prepare breakfast")
     return parser.parse_args()
 
 
@@ -336,9 +337,9 @@ def main():
 
     table_path = os.path.join(os.path.dirname(__file__), "../manipulation_env/models/urdf/objects/table/table.urdf")
     block_path = "cube_small.urdf"
-
+    bin_path = os.path.join(os.path.dirname(__file__), "../manipulation_env/models/urdf/objects/table/bin.urdf")
     robot = FrankaPanda(model_path=None)
-    env = ManiEnv(robot, block_path=block_path, table_path=table_path, vis=args.vis)
+    env = ManiEnv(robot, block_path=block_path, table_path=table_path, bin_path=bin_path, vis=args.vis)
     env.reset()
 
     # import pdb; pdb.set_trace()
@@ -401,7 +402,7 @@ def main():
     if rgb_image is None:
         image_path = os.environ.get('LLM_IMAGE_PATH', '/home/mhumais/Downloads/55.png')
         print(f"Warning: No RGB image available, using file path: {image_path}")
-        prompt = os.environ.get('LLM_PROMPT', "Put banana into plate, please generate the robot action plan with essential information.")
+        prompt = os.environ.get('LLM_PROMPT', args.prompt)
         reply = ask_gpt4o(
             prompt=prompt,
             system_prompt=SYSTEM_PROMPT,
@@ -409,7 +410,7 @@ def main():
         )
     else:
         print(f"Using RGB image from camera: shape={rgb_image.shape}, dtype={rgb_image.dtype}")
-        prompt = os.environ.get('LLM_PROMPT', "Put banana into plate, please generate the robot action plan with essential information.")
+        prompt = os.environ.get('LLM_PROMPT', args.prompt)
         reply = ask_gpt4o(
             prompt=prompt,
             system_prompt=SYSTEM_PROMPT,
@@ -422,6 +423,7 @@ def main():
     # Print formatted JSON response
     print("\n=== GPT-4o Response (JSON) ===")
     print(json.dumps(reply, indent=2))
+    import pdb; pdb.set_trace()
     print("\n=== Parsed Action Plan ===")
     for step in reply:
         print(f"Step {step.get('step_id', 'N/A')}: {step.get('action', 'N/A')} (action_id: {step.get('action_id', 'N/A')})")
@@ -506,6 +508,7 @@ def main():
                     env.step(robot_initial_pose)
                     for i in range(traj.shape[1]):
                         # env.step(traj[:, i])
+                        traj_7DoF = np.append(traj[:, i], np.array(robot_current_pose[-1], dtype=traj.dtype))
                         env.step(np.append(traj[:, i], np.array(robot_current_pose[-1], dtype=traj.dtype)))
                         # print(f"Step {i} of {traj_7.shape[1]}")
                         if env.check_touching():
@@ -528,3 +531,9 @@ if __name__ == "__main__":
     main()
 
 # python test_mani_env_w_llm.py --vis -show-camera --subscribe-camera --subscriber-log-interval 5
+# --prompt "prepare breakfast with all fruits" YES
+# --prompt "clear the table: put all objects into bin" YES
+# --prompt "serve multiple cups of drink" YES
+# --prompt "clear the table: put all objects into bin, and clean the table" 
+# --prompt "serve three plates of breakfast"
+# --prompt "clean the table"

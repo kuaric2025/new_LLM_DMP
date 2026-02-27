@@ -22,13 +22,14 @@
 	"version_major" : 1,
 	"version_minor" : 0,
 
-	"actions": ["reach to", "wiping", "grasp", "drop"],
-	"actions_list": ["0", "1", "2", "3"],
+	"actions": ["reach to", "wiping", "grasp", "drop", "pour"],
+	"actions_list": ["0", "1", "2", "3", "4"],
 	"action_id_mapping": {
 		"reach to": "0",
 		"wiping": "1",
 		"grasp": "2",
-		"drop": "3"
+		"drop": "3",
+		"pour": "4"
 	}
 
 }
