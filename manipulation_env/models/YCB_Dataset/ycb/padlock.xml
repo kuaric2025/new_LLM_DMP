@@ -1,0 +1,27 @@
+<mujoco model="padlock">
+  <compiler angle="radian" />
+
+  <asset>
+    <mesh name="padlock_visual_mesh" file="padlock/textured.obj" />
+    <mesh name="padlock_collision_mesh_0" file="padlock/textured_coacd_0.stl" />
+    <mesh name="padlock_collision_mesh_1" file="padlock/textured_coacd_1.stl" />
+    <mesh name="padlock_collision_mesh_2" file="padlock/textured_coacd_2.stl" />
+    <mesh name="padlock_collision_mesh_3" file="padlock/textured_coacd_3.stl" />
+    <mesh name="padlock_collision_mesh_4" file="padlock/textured_coacd_4.stl" />
+    <texture name="padlock_texture" type="2d" file="padlock/texture_map.png" />
+    <material name="padlock_material" texture="padlock_texture" />
+  </asset>
+
+  <worldbody>
+    <body name="padlock" pos="0 0 0" euler="0 0 0">
+      <freejoint name="padlock_joint" />
+      <geom name="padlock_visual_geom" type="mesh" mesh="padlock_visual_mesh" material="padlock_material" pos="0.0 -0.0 -0.0" euler="0 0 0" contype="0" conaffinity="0" group="0" />
+      <geom name="padlock_collision_geom_0" type="mesh" mesh="padlock_collision_mesh_0" pos="0.0 -0.0 -0.0" euler="0 0 0" contype="1" conaffinity="1" group="3" />
+      <geom name="padlock_collision_geom_1" type="mesh" mesh="padlock_collision_mesh_1" pos="0.0 -0.0 -0.0" euler="0 0 0" contype="1" conaffinity="1" group="3" />
+      <geom name="padlock_collision_geom_2" type="mesh" mesh="padlock_collision_mesh_2" pos="0.0 -0.0 -0.0" euler="0 0 0" contype="1" conaffinity="1" group="3" />
+      <geom name="padlock_collision_geom_3" type="mesh" mesh="padlock_collision_mesh_3" pos="0.0 -0.0 -0.0" euler="0 0 0" contype="1" conaffinity="1" group="3" />
+      <geom name="padlock_collision_geom_4" type="mesh" mesh="padlock_collision_mesh_4" pos="0.0 -0.0 -0.0" euler="0 0 0" contype="1" conaffinity="1" group="3" />
+      <inertial pos="0 0 0" euler="0 0 0" mass="0.208" diaginertia="0.001 0.001 0.001" />
+    </body>
+  </worldbody>
+</mujoco>

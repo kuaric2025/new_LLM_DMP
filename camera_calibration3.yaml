@@ -1,0 +1,61 @@
+# Static transform publisher acquired via MoveIt 2 hand-eye calibration
+# EYE-IN-HAND: fr3_link8 -> camera_color_optical_frame
+
+launch:
+    - node:
+          pkg: tf2_ros
+          exec: static_transform_publisher
+          output: log
+          args:
+              "
+              --frame-id fr3_link8
+              --child-frame-id camera_color_optical_frame
+              --x 0.00810075
+              --y -0.106187
+              --z 0.0258506
+              --qx -0.00149667
+              --qy 0.303232
+              --qz 0.952871
+              --qw 0.00920144
+              "
+              # --roll 2.52543
+              # --pitch 3.13886
+              # --yaw -0.0184444
+              
+              
+              T = np.array([
+		    [-0.9992, -0.0184,  0.0350,  0.008101],
+		    [ 0.0166, -0.8178,  0.5753, -0.106187],
+		    [-0.0360,  0.5752,  0.8172,  0.025851],
+		    [ 0.0   ,  0.0   ,  0.0   ,  1.0     ]
+		])
+		
+		
+		rosrun tf2_ros tf2_echo fr3_link8 camera_color_optical_frame
+[INFO] [1774517025.539671011] [tf2_echo]: Waiting for transform fr3_link8 ->  camera_color_optical_frame: Invalid frame ID "fr3_link8" passed to canTransform argument target_frame - frame does not exist
+At time 1774517027.525394150
+- Translation: [0.008, -0.106, 0.026]
+- Rotation: in Quaternion (xyzw) [-0.001, 0.303, 0.953, 0.009]
+- Rotation: in RPY (radian) [0.616, 0.008, 3.125]
+- Rotation: in RPY (degree) [35.301, 0.483, 179.047]
+- Matrix:
+ -1.000 -0.018  0.003  0.008
+  0.017 -0.816  0.578 -0.106
+ -0.008  0.578  0.816  0.026
+  0.000  0.000  0.000  1.000
+  
+  
+  ros2 run tf2_ros tf2_echo camera_color_optical_frame fr3_link8
+[INFO] [1774517044.694702762] [tf2_echo]: Waiting for transform camera_color_optical_frame ->  fr3_link8: Invalid frame ID "camera_color_optical_frame" passed to canTransform argument target_frame - frame does not exist
+At time 1774517046.685475417
+- Translation: [0.010, -0.101, 0.040]
+- Rotation: in Quaternion (xyzw) [-0.001, 0.303, 0.953, -0.009]
+- Rotation: in RPY (radian) [0.616, -0.003, -3.123]
+- Rotation: in RPY (degree) [35.304, -0.156, -178.943]
+- Matrix:
+ -1.000  0.017 -0.008  0.010
+ -0.018 -0.816  0.578 -0.101
+  0.003  0.578  0.816  0.040
+  0.000  0.000  0.000  1.000
+
+

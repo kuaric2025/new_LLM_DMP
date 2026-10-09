@@ -1,0 +1,34 @@
+{
+    "objects": [
+      {
+        "name": "banana",
+        "urdf_path": "/home/mhumais/Huang/DMP/manipulation_env/models/ycb_urdfS/ycb_assets/011_banana.urdf",
+        
+        "position": [0.6, 0.0, 0.25],
+        "orientation_euler": [0.0, 0.0, 1.2],
+        "fixed_base": false
+      },
+      {
+        "name": "apple",
+        "urdf_path": "/home/mhumais/Huang/DMP/manipulation_env/models/ycb_urdfS/ycb_assets/013_apple.urdf",
+        "position": [0.66, 0.2, 0.25],
+        "orientation_euler": [0.0, 0.0, 0.0],
+        "fixed_base": true      
+      },
+      {
+        "name": "orange",
+        "urdf_path": "/home/mhumais/Huang/DMP/manipulation_env/models/ycb_urdfS/ycb_assets/017_orange.urdf",
+        "position": [0.79, 0.3, 0.25],
+        "orientation_euler": [0.0, 0.0, 0.0],
+        "fixed_base": true      
+      },
+  
+      {
+        "name": "plate",
+        "urdf_path": "/home/mhumais/Huang/DMP/manipulation_env/models/ycb_urdfS/ycb_assets/029_plate.urdf",
+        "position": [0.66, -0.30, 0.25],
+        "orientation_euler": [0.0, 0.0, 0.0],
+        "fixed_base": true
+      }
+    ]
+  }

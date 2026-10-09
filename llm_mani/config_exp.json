@@ -1,0 +1,35 @@
+{
+	"class_name" : "PinholeCameraParameters",
+	"extrinsic" : 
+	[
+		-0.83981003967299983
+	],
+	"intrinsic" : 
+    [
+        430.3013610839844,
+        0.0,
+        417.06976318359375,
+        0.0,
+        429.9326171875,
+        245.400390625,
+        0.0,
+        0.0,
+        1.0
+    ],
+    "height" : 480,
+    "width" : 640,
+
+	"version_major" : 1,
+	"version_minor" : 0,
+
+	"actions": ["reach to", "wiping", "pour", "grasp", "drop"],
+	"actions_list": ["0", "1", "2", "3", "4"],
+	"action_id_mapping": {
+		"reach to": "0",
+		"wiping": "1",
+		"pour": "2",
+		"grasp": "3",
+		"drop": "4"
+	}
+
+}

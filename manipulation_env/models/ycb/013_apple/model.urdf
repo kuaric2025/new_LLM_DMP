@@ -1,0 +1,32 @@
+<robot name="013_apple">
+	<link name="_name">
+		<contact>
+			<friction_anchor/>
+			<lateral_friction value="1.2"/>
+			<rolling_friction value="0.1"/>
+			<spi_friction value="0.0"/>
+			<stiffness value="500"/>
+			<damping value="10"/>
+		</contact>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="013_apple/google_16k/textured.obj" scale="1.0 1.0 1.0" />
+			</geometry>
+			<material name="texture">
+				<color rgba="1.0 1.0 1.0 1.0" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="013_apple/google_16k/textured_vhacd.obj" scale="1.0 1.0 1.0" />
+			</geometry>
+		</collision>
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<mass value="0.10" />
+			<inertia ixx="0.00012" ixy="0.0" ixz="0.0" iyy="0.00012" iyz="0.0" izz="0.00012" />
+		</inertial>
+	</link>
+</robot>

@@ -1,0 +1,30 @@
+<robot name="017_orange">
+	<link name="_name">
+		<contact>
+			<friction_anchor/>
+			<lateral_friction value="1"/>
+			<rolling_friction value="0.0"/>
+			<spi_friction value="0.0"/>
+			<stiffness value="500"/>
+			<damping value="10"/>
+		</contact>
+		<visual>
+			<origin xyz="0.07142269033564903 0.1836826280261465 -0.33633643650901907" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="017_orange/google_16k/textured.obj" scale="0.8 0.8 0.8" />
+			</geometry>
+			<material name="texture">
+				<color rgba="1.0 1.0 1.0 1.0" />
+			</material>
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="017_orange/google_16k/textured_vhacd.obj" scale="0.8 0.8 0.8" />
+			</geometry>
+		<origin xyz="0.07142269033564903 0.1836826280261465 -0.33633643650901907" rpy="0 0 0" /></collision>
+		<inertial>
+			<mass value="1.0" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>
+</robot>
